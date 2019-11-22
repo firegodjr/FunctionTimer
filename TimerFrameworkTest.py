@@ -7,9 +7,9 @@ results = tester.test_all(300)
 
 csv = ""
 for case in results.keys():
-    csv += "{},\n".format(case)
+    csv += "{},\n".format(str(case))
     for arg in results[case].keys():
-        csv += ",{},{},\n".format(arg, ",".join(results[case][arg]))
+        csv += ",{},{},\n".format(str(arg), str(",".join(results[case][arg])))
 
 csv_file = open("RESULTS_{}.csv".format(filepath), "w+")
 csv_file.write(csv)
