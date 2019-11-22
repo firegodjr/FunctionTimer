@@ -19,8 +19,8 @@ def recursive_wrapper(p):
     n = len(p)
     s = [[0 for j in range(n)] for i in range(n)]
     m = [[sys.maxsize for x in range(n + 1)] for y in range(n + 1)]
-    i = 1
-    j = n
+    i = 0
+    j = n - 1
     recursive_matrix_chain(p, i, j, m, s)
     return s
 
@@ -32,11 +32,12 @@ def recursive_matrix_chain(p, i, j, m, s):
     if i == j:
         return 0
     m[i][j] = sys.maxsize
+    q = 0
     for k in range(i, j-1):
-        q = recursive_matrix_chain(p, i, k) + recursive_matrix_chain(p, k + 1, j) + (p[i - 1])(p[k])(p[j])
+        q = recursive_matrix_chain(p, i, k, m, s) + recursive_matrix_chain(p, k + 1, j, m, s) + (p[i - 1])*(p[k])*(p[j])
         if q < m[i][j]:
             m[i][j] = q
-            s[i][j] = q
+            s[i][j] = k
     return q
 
 
@@ -62,7 +63,7 @@ def bottom_up_mcm(p, m, s):
             j = i + l - 1
             m[i][j] = sys.maxsize
             for k in range(i, j - 1):
-                q = m[i][k] + m[k+1][j] + (p[i-1])(p[k])(p[j])
+                q = m[i][k] + m[k+1][j] + (p[i-1])*(p[k])*(p[j])
                 if q < m[i][j]:
                     m[i][j] = q
                     s[i][j] = k
@@ -84,10 +85,10 @@ def memo_wrapper(p):
 
 
 def memoized_matrix_chain(p, m, n, s):
-    for i in range(1, n):
+    for i in range(n):
         for j in range(i, n):
             m[i][j] = sys.maxsize
-    return lookup_chain(m, p, 1, n, s)
+    return lookup_chain(m, p, 0, n-1, s)
 
 
 def lookup_chain(m, p, i, j, s):
@@ -97,10 +98,10 @@ def lookup_chain(m, p, i, j, s):
         m[i][j] = 0
     else:
         for k in range(i, j-1):
-            q = lookup_chain(m, p, i, k) + lookup_chain(m, p, k + 1, j) + (p[i - 1])(p[k])(p[j])
+            q = lookup_chain(m, p, i, k, s) + lookup_chain(m, p, k + 1, j, s) + (p[i - 1])*(p[k])*(p[j])
             if q < m[i][j]:
                 m[i][j] = q
-                s[i][j] = q
+                s[i][j] = k
     return m[i][j]
 
 
