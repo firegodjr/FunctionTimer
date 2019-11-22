@@ -6,6 +6,7 @@
 
 import timeit
 import time
+import traceback
 
 
 # Contains the name and list input for a single test
@@ -23,6 +24,7 @@ class TestCase:
         self.init = init
 
 
+# A class built for easy testing of multiple functions and array test cases
 class TimeTester:
     # Plaintext test files have this structure:
     #
@@ -50,6 +52,8 @@ class TimeTester:
                     self.test_args.append(TestArguments(args[0].strip(" "), eval(args[1])))
                 line = file.readline()
 
+            file.close()
+
     # Tests all given cases and returns a 2d dictionary with structure
     # { case.name : { args.name : time_per_n[] } }
     def test_all(self, run_count, max_len=100, step_count=1):
@@ -68,6 +72,13 @@ class TimeTester:
     def test_n_range(test_case: TestCase, test_args: TestArguments, run_count: int, n_range: list):
         times = []
         for n in n_range:
-            func = test_case.func.format(str(test_args.array[:n]))
-            times.append(min(timeit.repeat(func, test_case.init, time.clock, run_count, 25))/25 * 10**9)
+            array_str = str(test_args.array[:n])
+            func = test_case.func.format(array_str, array_str, array_str, array_str)
+            try:
+                times.append(min(timeit.repeat(func, test_case.init, time.clock, run_count, 25)) / 25 * 10 ** 9)
+            except Exception:
+                print("Fatal error occurred when attempting to test {} with {}".format(test_case.name, test_args.name))
+                traceback.print_exc()
+
+
         return times
