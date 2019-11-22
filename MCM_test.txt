@@ -1,4 +1,4 @@
-case Recursive###recursive_matrix_chain({},0,len({}),[])###from MCMmethods import recursive_matrix_chain
-#case Bottom-up###bottom_up_mcm({})###from MCMmethods import bottom_up_mcm
-#case Top-down###memoized_matrix_chain({})###from MCMmethods import memoized_matrix_chain
+case Recursive###recursive_wrapper({})###from MCMmethods import recursive_wrapper
+case Bottom-up###bottom_wrapper({})###from MCMmethods import bottom_wrapper
+case Top-down###memo_wrapper({})###from MCMmethods import memo_wrapper
 args Basic Test###[6,5,2,4,9,4,8,9,0,2]
