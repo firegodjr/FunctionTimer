@@ -1,4 +1,4 @@
 case Recursive###recursive_wrapper({})###from MCMmethods import recursive_wrapper
 case Bottom-up###bottom_wrapper({})###from MCMmethods import bottom_wrapper
-case Top-down###memo_wrapper({})###from MCMmethods import memo_wrapper
-args Basic Test###[6,5,2,4,9,4,8,9,0,2]
+case Memoized###memo_wrapper({})###from MCMmethods import memo_wrapper
+args Basic Test###[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
